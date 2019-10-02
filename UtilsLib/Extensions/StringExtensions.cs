@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace UtilsLib.Extensions
 {
@@ -46,6 +48,31 @@ namespace UtilsLib.Extensions
             char[] a = s.ToLowerInvariant().ToCharArray();
             a[0] = Char.ToUpper(a[0]);
             return new string(a);
+        }
+
+        public static string MultipleReplace(this string text, Dictionary<string, string> replacements)
+        {
+            return Regex.Replace(
+                text,
+                "(" + String.Join("|", replacements.Keys.ToArray()) + ")",
+                delegate (Match m)
+                {
+                    // replacement 'key' is simple string, so value is equal
+                    // e.g. key="Smith", m.Value="Smith"
+                    if (replacements.ContainsKey(m.Value))
+                        return replacements[m.Value];
+
+                    // replacement 'key' is a regex pattern. Match value is a different string then the
+                    // key, so we must perform an additional match to find out which key resulted in a match
+                    // for the given value.
+                    // e.g. key="http[s]?[^\s]+" value="http://azerty.be"
+                    foreach (var k in replacements.Keys)
+                    {
+                        if (Regex.IsMatch(m.Value, k))
+                            return replacements[k];
+                    }
+                    throw new Exception("Was match but didn't know which pattern");
+                });
         }
     }
 }

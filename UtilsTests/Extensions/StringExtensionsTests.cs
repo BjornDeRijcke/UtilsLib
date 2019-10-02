@@ -1,4 +1,5 @@
-﻿using UtilsLib.Extensions;
+﻿using System.Collections.Generic;
+using UtilsLib.Extensions;
 using Xunit;
 
 namespace UtilsTests.Extensions
@@ -41,6 +42,27 @@ namespace UtilsTests.Extensions
         {
             var res = input.FirstCharacterToUpperCase();
             Assert.Equal(expected, res);
+        }
+
+        [Fact]
+        public void MultipleReplace()
+        {
+            string input = "Jonathan Smith is  a developer";
+            string expected = "Smith-Jonathan-is a-goat";
+
+            var replacements = new Dictionary<string, string>
+            {
+                { "Jonathan", "Smith" },
+                { "Smith", "Jonathan" },
+                { "developer", "goat" },
+                { "goat", "donkey" },
+                { @"\s{2,20}", " " }, // multiple spaces
+                { " ", "-" }
+            };
+
+            string output = input.MultipleReplace(replacements);
+
+            Assert.Equal(expected, output);
         }
     }
 }
