@@ -47,6 +47,8 @@ namespace UtilsTests.Extensions
         [InlineData('\uFFF9', true, "INTERLINEAR ANNOTATION ANCHOR")]
         [InlineData('\uFFFA', true, "INTERLINEAR ANNOTATION SEPARATOR")]
         [InlineData('\uFFFB', true, "INTERLINEAR ANNOTATION TERMINATOR")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Explanation what the char is, useful when test fails")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "xUnit1026:Theory methods should use all of their parameters", Justification = "Explanation what the char is, useful when test fails")]
         public void IsUnicodeFormatChar(char c, bool shouldMatch, string charName)
         {
             Assert.Equal(shouldMatch, c.IsUnicodeFormatChar());
