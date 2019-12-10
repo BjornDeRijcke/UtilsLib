@@ -38,9 +38,23 @@ namespace UtilsTests.Extensions
         [InlineData("\t", "\t")]
         [InlineData("DeKeNEnalMAls", "Dekenenalmals")]
         [InlineData("deKeNEnalMAls", "Dekenenalmals")]
-        public void FirstCharacterToUpperCase(string input, string expected)
+        public void UppercaseFirst(string input, string expected)
         {
-            var res = input.FirstCharacterToUpperCase();
+            var res = input.UppercaseFirst();
+            Assert.Equal(expected, res);
+        }
+
+        [Theory]
+        [InlineData("1lem", "1lem")]
+        [InlineData("Alem", "alem")]
+        [InlineData("_LK", "_LK")]
+        [InlineData("a firSt song", "a firSt song")]
+        [InlineData("\t", "\t")]
+        [InlineData("DeKeNEnalMAls", "deKeNEnalMAls")]
+        [InlineData("deKeNEnalMAls", "deKeNEnalMAls")]
+        public void LowercaseFirst(string input, string expected)
+        {
+            var res = input.LowercaseFirst();
             Assert.Equal(expected, res);
         }
 

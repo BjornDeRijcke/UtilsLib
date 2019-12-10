@@ -40,13 +40,29 @@ namespace UtilsLib.Extensions
         /// Returns the input string with the first character converted to uppercase, 
         /// or mutates any nulls passed into string.Empty
         /// </summary>
-        public static string FirstCharacterToUpperCase(this string s)
+        public static string UppercaseFirst(this string s)
         {
             if (String.IsNullOrEmpty(s))
                 return String.Empty;
 
             char[] a = s.ToLowerInvariant().ToCharArray();
             a[0] = Char.ToUpper(a[0]);
+            return new string(a);
+        }
+
+        /// <summary>
+        /// Returns the input string with the first character converted to lowercase, 
+        /// or mutates any nulls passed into string.Empty
+        /// </summary>
+        public static string LowercaseFirst(this string s)
+        {
+            if (String.IsNullOrEmpty(s))
+            {
+                return String.Empty;
+            }
+
+            char[] a = s.ToCharArray();
+            a[0] = Char.ToLower(a[0]);
             return new string(a);
         }
 
