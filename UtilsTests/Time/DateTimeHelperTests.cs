@@ -57,10 +57,13 @@ namespace UtilsTests.Time
                 yield return new object[] { "2001+03+25 02:00:00", rom, false, DateTime.MinValue }; // Invalid time (02:00 becomes 03:00)
                 yield return new object[] { "2001+03+25 03:00:00", rom, true, UtcZoneDt(2001, 03, 25, 1, 0, 0) };
 
-                // Morocco Standard Time. End of ramadan 1 hour change. UTC+2 to UTC+1
-                yield return new object[] { "2021+05+16 01:00:00", mor, true, UtcZoneDt(2021, 05, 16, 01, 00, 00) };
-                yield return new object[] { "2021+05+16 02:00:00", mor, false, DateTime.MinValue }; // Invalid time (02:00 becomes 03:00)
-                yield return new object[] { "2021+05+16 03:00:00", mor, true, UtcZoneDt(2021, 05, 16, 02, 0, 0) };
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    // Morocco Standard Time. End of ramadan 1 hour change. UTC+2 to UTC+1
+                    yield return new object[] { "2021+05+16 01:00:00", mor, true, UtcZoneDt(2021, 05, 16, 01, 00, 00) };
+                    yield return new object[] { "2021+05+16 02:00:00", mor, false, DateTime.MinValue }; // Invalid time (02:00 becomes 03:00)
+                    yield return new object[] { "2021+05+16 03:00:00", mor, true, UtcZoneDt(2021, 05, 16, 02, 0, 0) };
+                }
 
                 // Cen. Australia Standard Time. Winter -> summer time. UTC+9:30 to UTC+10:30
                 yield return new object[] { "2021+10+03 01:00:00", ast, true, UtcZoneDt(2021, 10, 02, 15, 30, 0) };
