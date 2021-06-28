@@ -34,6 +34,5 @@ namespace UtilsTests.Extensions
 
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
-
     }
 }

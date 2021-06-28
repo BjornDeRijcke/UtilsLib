@@ -20,5 +20,10 @@ namespace UtilsLib.Extensions
             // Return the week of our adjusted day
             return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
         }
+
+        public static DateTime AddWeeks(this DateTime date, int weeks)
+        {
+            return date.AddDays(weeks * 7);
+        }
     }
 }
